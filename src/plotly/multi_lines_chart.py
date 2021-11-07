@@ -16,7 +16,11 @@ def plot_multi_lines_chart(df: pd.DataFrame, x_axis_name: str, y_axis_list_names
     fig = go.Figure()
     for y in y_axis_list_names:
         fig.add_trace(go.Scatter(x=df[x_axis_name], y=df[y], name=y))
-    fig.show()
+    try:
+        fig.show()
+    except RecursionError:
+        print("Recursion Error occurred, please check the data types you pass in the dataframe. Plotly accepts"
+              "only native Python data type, for example, try to change np.float128 -> np.float64.")
 
 
 # df example:
